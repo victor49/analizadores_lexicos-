@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace AnalizadorLexico
+{
+    class Program
+234
+    {
+        static void Main(string[] args)
+        {
+            string codigoFuentePath = "codigo_fuente.txt";
+
+3            // Leer el código fuente desde el archivo
+            string codigoFuente = File.ReadAllText(codigoFuentePath);
+4
+            // Implementación del analizador léxico
+            List<Token> tokens = AnalizadorLexico(codigoFuente);
+
+            // Mostrar los tokens encontrados
+            Console.WriteLine("Tokens encontrados:");
+            foreach (var token in tokens)
+            {
+                Console.WriteLine($"{token.Tipo}: {token.Valor}");
+            }
+        }
+
+        // Definir la clase Token
+        public class Token
+        {
+            public string Tipo { get; set; }
+            public string Valor { get; set; }
+        }
+
+        // Implementación del analizador léxico
+        static List<Token> AnalizadorLexico(string codigoFuente)
+        {
+            List<Token> tokens = new List<Token>();
+
+            // Lógica del analizador léxico
+            // Aquí puedes implementar la lógica para identificar tokens en el código fuente
+            // Por ejemplo, puedes buscar palabras clave, operadores, identificadores, etc.
+
+            // Este es un ejemplo muy básico que solo separa el código en tokens basados en espacios en blanco
+            string[] palabras = codigoFuente.Split(new char[] { ' ', '\n', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var palabra in palabras)
+            {
+                Token token = new Token();
+                token.Valor = palabra;
+
+                // Determinar el tipo de token (puedes agregar más tipos según sea necesario)
+                if (palabra == "if" || palabra == "else" || palabra == "while" || palabra == "for")
+                {
+                    token.Tipo = "Palabra Reservada";
+                }
+                else
+                {
+                    token.Tipo = "Identificador";
+                }
+
+                tokens.Add(token);
+            }
+
+            return tokens;
+        }
+    }
+}
